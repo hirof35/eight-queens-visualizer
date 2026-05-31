@@ -1,73 +1,42 @@
-# React + TypeScript + Vite
+# 👑 エイト・クイーン・ビジュアライザー (8-Queens Visualizer)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+チェスの古典的なパズル問題「エイト・クイーン問題」を、React (TypeScript) を用いてブラウザ上で視覚的に楽しく学べるシミュレーターアプリです。
 
-Currently, two official plugins are available:
+バックトラッキング（アルゴリズム）がどのように盤面を探索し、失敗し、戻り（バックトラック）、そして解を見つけ出すのかを1コマずつアニメーションで確認できます。
+<img width="879" height="987" alt="スクリーンショット 2026-06-01 063230" src="https://github.com/user-attachments/assets/7fe62ed2-c2d0-417e-a00d-e7d535dda054" />
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 特徴
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **リアルタイム・ビジュアライズ**: クイーン（👑）が盤上をパチパチと動き回り、探索する様子を完全再現。
+- **全解探索（92パターン）**: 途中で止まることなく、すべての組み合わせを網羅して全92個の正解パターンを自動検出。
+- **インタラクティブな履歴閲覧**: 発見した解のボタン（#1〜#92）をクリックすることで、いつでも過去の正解配置を盤面に再現。
+- **軽量・安定設計**: Reactの再帰処理による処理落ちを防ぐため、内部データのRef管理と軽量タイマー（`setInterval`）を組み合わせた超安定高速描画を採用。
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ 使用技術 (Tech Stack)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Frontend**: React 18 / TypeScript
+- **Build Tool**: Vite
+- **Compiler**: oxc (超高速ビルド環境)
+- **Styling**: CSS-in-JS (Inline Styles)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📦 ローカルでの起動方法 (Getting Started)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+リポジトリをクローンまたはダウンロードし、以下のコマンドで手軽にローカル環境で動かすことができます。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1. 依存パッケージのインストール
+```bash
+npm install
+2. 開発サーバーの起動
+Bash
+npm run dev
+サーバーが起動したら、ブラウザで http://localhost:5173/ にアクセスしてください。
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+💡 エイト・クイーン問題とは？
+8×8のチェス盤に、どの2つのクイーンもお互いを襲撃できない（同じ行、列、斜めのラインに配置しない）ように8つのクイーンを配置するパズルです。
+このアプリでは、コンピューターが左上のマスから順にクイーンを置き、置けなくなったら「一手戻って別の道を試す」というバックトラッキング（一般にいう深さ優先探索）のアルゴリズムを使って解を導いています。
